@@ -10,10 +10,9 @@
 <body>
 <h1>Комментарии</h1>
 <form action="file_write.php" method="post">
-<p>Введите Имя: <input type="text" name="name"></p>
-<p>Введите Фамилию: <input type="text" name="surname"></p>
-<p>Введите Комментарий: <input type="text" name="comment"></p>
-<input type="submit" name="Отправить">
+    <p>Введите Имя: <input type="text" name="name"></p>
+    <p>Введите Комментарий: <input type="text" name="comment"></p>
+    <input type="submit" name="Отправить">
 </form>
 </body>
 </html>

@@ -1,15 +1,25 @@
 <?php
-if (isset($_REQUEST['name']) && isset($_REQUEST['surname']) && isset($_REQUEST['comment'])) {
+if (isset($_REQUEST['name']) && isset($_REQUEST['comment'])) {
     $dateComment = date('d.m.Y H:i:s');
-    $fileWrite = fopen("comment.txt", 'a+') or die('не удалось записать файл');
-    $comment = $_REQUEST['name'] . ' ' . $_REQUEST['surname'] . "\r\n" . $dateComment . ' ' . $_REQUEST['comment'] . "\r\n";
-    fwrite($fileWrite, $comment);
-    fclose($fileWrite);
+    $fileWrite = fopen("comment.txt", 'a');
+    if($fileWrite) {
+        $comment = "$dateComment - {$_REQUEST['name']} : {$_REQUEST['comment']}\n";
+        fwrite($fileWrite, $comment);
+        fclose($fileWrite);
 
-    $screenReading = fopen("comment.txt", "r+") or die("не удалось открыть файл");
-    while (!feof($screenReading)) {
-        $readingString = htmlentities(fgets($screenReading));
-        echo $readingString . "<br/>";
+        $screenReading = fopen("comment.txt", "r+");
+        if ($screenReading) {
+            $comments = file("comment.txt");
+            rsort($comments);
+            foreach ($comments as $item) {
+                echo $item . "<br>";
+            }
+        }
+        else {
+            echo 'не удалось открыть файл';
+        }
     }
-    fclose($screenReading);
+    else {
+        echo 'файл не удалось записать';
+    }
 }
